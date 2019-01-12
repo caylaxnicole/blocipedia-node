@@ -1,0 +1,19 @@
+{
+  "name": "blocipedia-node",
+  "version": "1.0.0",
+  "description": "A wiki app that allows users to create and share wikis",
+  "main": "index.js",
+  "scripts": {
+    "test": "export NODE ENV=test && jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/caylaxnicole/blocipedia-node.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/caylaxnicole/blocipedia-node/issues"
+  },
+  "homepage": "https://github.com/caylaxnicole/blocipedia-node#readme"
+}
