@@ -6,9 +6,10 @@
   <body>
     <% include ../static/partials/navbar.ejs %>
     <main class="container">
-    <% include ../static/partials/messages.ejs %>
+
     <h2>Welcome to Blocipedia</h2>
     <h1>Sign Up</h1>
+    <% include ../static/partials/messages.ejs %>
     <div class="row">
      <div class="col-md-8">
        <form method="POST" action="/users">
@@ -28,7 +29,7 @@
            <label>Password:</label>
            <input type="password" name="password_conf" placeholder="Enter Password confirmation" class="form-control"/>
          </div><br/>
-         <input type="submit" value="Sign Up" class="btn btn-primary"/>
+         <button type="submit" class="btn btn-primary">Sign up</button>
        </form>
      </div>
    </div>

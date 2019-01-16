@@ -5,11 +5,11 @@
   </head>
   <body>
     <% include ./partials/navbar.ejs %>
-    <% include ../static/partials/messages.ejs %>
-      <main class="container">
 
+      <main class="container">
         <!-- Jumbotron Header -->
         <header class="jumbotron my-4">
+          <% include ../static/partials/messages.ejs %>
           <h1 class="display-3">Welcome to Blocipedia!</h1>
           <p class="lead">An application for users to create, collaborate, and share wikis.</p>
           <a href="/users/sign_up" class="btn btn-primary btn-lg">Sign up</a>
@@ -19,7 +19,7 @@
         <section class="row text-center">
 
           <section class="col-lg-4">
-          <a href="#" class="btn btn-primary btn-lg">Free Plan</a>
+          <a href="/users/sign_up" class="btn btn-primary btn-lg">Free Plan</a>
             <p class="card-text">When you signup for our free plan you can create as many public wikis and you want!</p>
           </section>
 
