@@ -11,12 +11,12 @@ module.exports = (sequelize, DataTypes) => {
     },
     private: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false
+      defaultValue: false,
+      allowNull: false
     },
     userId: {
       type: DataTypes.INTEGER,
-      onDelete: "CASCADE",
-      allowNull: false,
+      allowNull: false
     }
   }, {});
   Wiki.associate = function(models) {
