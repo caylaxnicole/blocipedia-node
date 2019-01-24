@@ -3,6 +3,7 @@ const passport = require("passport");
 const sendgrid = require("../library/sendgrid.js");
 
 
+
 module.exports = {
   signUp(req, res, next){
     res.render("users/sign_up");
@@ -23,7 +24,7 @@ module.exports = {
         sendgrid.newUserEmail(newUser.email, newUser.name);
         passport.authenticate("local")(req, res, () => {
           req.flash("notice", "You've successfully signed up!");
-          res.redirect("/");
+          res.redirect("/users/profile");
         })
       }
     });
@@ -40,7 +41,7 @@ module.exports = {
         res.redirect("/users/sign_in");
       } else{
         req.flash("notice", "You've successfully signed in!")
-        res.redirect("/");
+        res.redirect("/users/profile");
       }
     })
   },
@@ -49,5 +50,51 @@ module.exports = {
     req.logout();
     req.flash("notice", "You've successfully signed out!");
     res.redirect("/");
+  },
+
+  show(req, res, next){
+    userQueries.getUser(req.user.id, (err, user) => {
+      if(err || user === undefined){
+        req.flash("notice", "No user found with that ID");
+        res.redirect("/");
+      } else{
+        res.render("users/profile", {user});
+      }
+    });
+  },
+
+  upgrade (req, res, next){
+    const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+    const token = req.body.stripeToken;
+    const charge = stripe.charges.create({
+      amount: 1500,
+      currency: "usd",
+      description: "Upgrade to premium",
+      source: token
+    });
+    userQueries.upgrade(req.params.id, (err, user) => {
+      if(err && err.type ==="StripeCardError"){
+        req.flash("notice", "Your card was declined");
+        res.redirect("/users/profile");
+      } else{
+        req.flash("notice", "Your payment via stripe was successful, Thank you!");
+        res.redirect(`/users/${req.params.id}`);
+      }
+    }) ;
+  },
+
+  downgrade(req, res, next){
+    userQueries.downgrade(req.params.id, (err, user) => {
+      if(err || user === null){
+        req.flash("notice", "No user found with that ID");
+        res.redirect("/");
+      } else{
+        req.flash("notice", "Your account has been reverted back to standard");
+        res.redirect(`/users/${req.params.id}`);
+      }
+    });
   }
+
+
+
 }

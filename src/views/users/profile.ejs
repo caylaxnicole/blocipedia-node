@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+  <body>
+
+    <% include ../static/partials/navbar.ejs %>
+
+    <main class="container" style="margin-top: 100px;">
+
+      <% include ../static/partials/messages.ejs %>
+
+      <h1> <%=`${user.email} Profile ` %> Home Page</h1>
+
+      <% if(currentUser.role == "standard") { %>
+      <h2>Upgrade your account</h2>
+      <p>With this upgrade you will recieve access to your own private wikis.</p>
+
+      <div class="row">
+       <div class="col-md-8">
+         <form action="/users/<%=currentUser.id %>/upgrade" method="POST">
+           <script
+             src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+             data-key="pk_test_VW1I8l3ilf7PL9uMatPOTwzT"
+             data-amount="1500"
+             data-name="Upgrade to premium account"
+             data-description="The premium account offers the ability to make private wikis."
+             data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+             data-locale="auto"
+             data-currency = "usd">
+           </script>
+         </form>
+        </div>
+      </div>
+      <% } else { %>
+      <div>
+        <form action="/users/<%=currentUser.id %>/downgrade" method="POST">
+          <button type="submit" class="btn btn-primary">Downgrade Account</button>
+        </form>
+      </div>
+      <% }%>
+      </main>
+      <h2> Latest Wikis</h2>
+      <ul class="list-unstyled">
+
+
+      </ul>
+    </main>
+
+    <% include ../static/partials/baseScripts.ejs %>
+
+  </body>
+</html>
