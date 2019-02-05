@@ -88,29 +88,6 @@ describe("routes : users", () => {
     });
   });
 
-  describe("POST /users/:id/update", () => {
-
-    it("should update the user to premium upon payment", (done) => {
-      const options = {
-        url: `${base}/update`,
-        form: {
-          name: "Dave",
-          email: "user@example.com",
-          password: "123456"
-        }
-      };
-      request.post(options, (err, res, body) => {
-        expect(err).toBeNull();
-        User.findOne({
-          where: {id: this.user.id}
-        })
-        .then((user) => {
-          expect(user.role).toBe("premium");
-          done();
-        });
-      });
-    });
-  });
 
 
 });
