@@ -19,8 +19,18 @@
           <label for="description">Body</label>
           <textarea rows="4" class="form-control" name="body" placeholder="Enter Text"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <% if(currentUser.role == "standard") { %>
+        <button type="submit" class="btn btn-primary">Submit Public Wiki</button>
+          <% } else { %>
+          <div class="checkbox">
+            <label><input type="checkbox" name="private" value="isPrivate">Make Private</label>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit Wiki</button>
+
+
+        <% }%>
       </form>
+
 
     </main>
 

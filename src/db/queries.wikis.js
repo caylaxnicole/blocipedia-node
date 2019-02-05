@@ -1,6 +1,7 @@
 const Wiki = require("./models").Wiki;
 const Authorizer = require("../policies/application");
 
+
 module.exports = {
 
   getAllWikis(callback){
@@ -74,5 +75,9 @@ module.exports = {
         callback("Forbidden");
       }
     });
-  }
+  },
+
+
+
+
 }

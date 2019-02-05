@@ -29,14 +29,16 @@ module.exports = {
       let newWiki = {
         title: req.body.title,
         body: req.body.body,
-        private: false,
-        userId: req.user.id
+        userId: req.user.id,
+        private: req.body.private == "isPrivate"
       };
       wikiQueries.addWiki(newWiki, (err, wiki) => {
         if(err){
+          console.log('err', err);
           res.redirect(500, "/wikis/new");
         } else{
-          res.redirect(303, `/wikis/${wiki.id}`);
+
+            res.redirect(303, `/wikis/${wiki.id}`);
         }
       });
     } else{
@@ -82,7 +84,13 @@ module.exports = {
   },
 
   update(req, res, next){
-    wikiQueries.updateWiki(req, req.body, (err, wiki) => {
+    let updatedWiki = {
+      title: req.body.title,
+      body: req.body.body,
+      userId: req.user.id,
+      private: req.body.private == "isPrivate"
+    };
+    wikiQueries.updateWiki(req, updatedWiki, (err, wiki) => {
       if(err || wiki == null){
         res.redirect(401, `/wikis/${req.params.id}/edit`);
       } else{
@@ -90,4 +98,5 @@ module.exports = {
       }
     });
   }
+
 }
